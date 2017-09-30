@@ -74,7 +74,7 @@ def dailygoal(user):
                 repl = line.replace("</b>", "").replace("<b>", "") #kill HTML                
                 return repl
             except TypeError:
-                raise mem_exceptions.NoMems()
+                pass
             except IOError:
                 raise mem_exceptions.NoConnection()
 
@@ -90,7 +90,7 @@ def mems(user):
             lines = pagetext.split("\n")
             return lines[mems_line-1]
         except TypeError:
-            raise mem_exceptions.NoMems()
+            return 0
         except IOError:
             raise mem_exceptions.NoConnection()
         
@@ -105,7 +105,7 @@ def points(user):
             lines = pagetext.split("\n")
             return lines[points_line-4]
         except TypeError:
-                raise mem_exceptions.NoPoints()
+                return 0
         except IOError:
                 raise mem_exceptions.NoConnection()
 def words(user):
@@ -119,7 +119,7 @@ def words(user):
             lines = pagetext.split("\n")
             return lines[words_line-5]
         except TypeError:
-                raise mem_exceptions.NoWords()
+                return 0
         except IOError:
                 raise mem_exceptions.NoConnection()
 
@@ -134,7 +134,7 @@ def number_of_followers(user):
             lines = pagetext.split("\n")
             return lines[followers_line-6]
         except TypeError:
-            raise mem_exceptions.NoWords()
+            return 0
         except IOError:
                 raise mem_exceptions.NoConnection()
 
@@ -149,10 +149,8 @@ def number_of_following(user):
             lines = pagetext.split("\n")
             return lines[following_line-5]
         except TypeError:
-                raise mem_exceptions.NoWords()
+                return 0
         except IOError:
                 raise mem_exceptions.NoConnection()
 
-def userinfo(user):
-    return user + '\nWords ' + words(user) + '\nPoints ' + points(user) + '\nMems ' + mems(user) + '\nDailygoal ' + dailygoal(user) + '\nFollower ' + number_of_followers(user) + '\nFollowing ' + number_of_following + '\nPro member' + str(promember(user)) + '\nTop 50 learn competition ' + str(top50learncompetition(user))
   
