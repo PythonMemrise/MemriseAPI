@@ -1,11 +1,13 @@
+
 # MemriseAPI
 import urllib
 import sys
 import mem_exceptions
 
-__all__ = ['dailygoal', 'mems', 'number_of_followers', 'number_of_following', 'points', 'promember', 'top50learncompetition', 'words', 'usertest']
+__all__ = ['courses_learning', 'courses_learning_number', 'courses_teaching', 'courses_teaching_number', 'dailygoal',  'mems', 'number_of_followers', 'number_of_following', 'points', 'promember', 'top50learncompetition',
+           'words', 'usertest']
 
-actuality = coerce(1.0, 9.2017) #version: 1.0 last, last update: September 2017
+actuality = coerce(1.1, 10.2017) #version: 1.1 last, last update: October 2017
 
 
 
@@ -153,4 +155,46 @@ def number_of_following(user):
         except IOError:
                 raise mem_exceptions.NoConnection()
 
-  
+def courses_learning_number(user):
+    try:
+        url = "http://memrise.com/user/" + user + "/courses/teaching"
+        text = get_pagetext(url)
+        matched_lines = [line for line in text.split('\n') if "" in line]
+        return matched_lines[35]
+    except IOError:
+        raise mem_exceptions.NoConnection()
+       
+def courses_teaching_number(user):
+    try:
+        url = "http://memrise.com/user/" + user + "/courses/teaching"
+        text = get_pagetext(url)
+        matched_lines = [line for line in text.split('\n') if "" in line]
+        return matched_lines[36]
+    except IOError:
+        raise mem_exceptions.NoConnection()
+        
+def learning_courses(user):
+    try:
+        url = "http://memrise.com/user/" + user + "/courses/learning"
+        text = pagetext(url)
+        matched_lines = [line for line in text.split('\n') if "" in line]
+        for el in range(39, len(matched_lines)-45, 6):
+            l=[]
+            for i in range(0,6):
+                if i != 4:
+                    l.append(matched_lines[el+i])
+            print l
+                
+def teaching_courses(user, generator=True):
+    url = "http://memrise.com/user/" + user + "/courses/teaching"
+    text = get_pagetext(url)
+    matched_lines = [line for line in text.split('\n') if "" in line]
+    for el in range(39, len(matched_lines)-45 ,6):
+        l=[]
+        for i in range(0,6):
+            if i != 4 and i != 5:
+                l.append(matched_lines[el+i])
+        print l    
+    
+         
+   
