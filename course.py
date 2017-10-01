@@ -7,7 +7,7 @@ import mem_exceptions
 
 __all__ = ['actuality', 'allcourses', 'courseinfo', 'coursenumber', 'coursetest']
 
-actuality = coerce(1.0, 9.2017) #version: 1.0 last, last update: September 2017
+actuality = coerce(1.1, 9.2017) #version: 1.1 last, last update: October 2017
 
 
 def linenumber(url, text): #gets the number of a line
@@ -29,8 +29,6 @@ def coursetest(id):
             return exist
     except IOError:
         raise mem_exceptions.NoConnection()
-
-#wie viele kurse werden taeglich gemacht? Daraus mit datetime errechnen den start fuer newestcourse()
 
 def coursenumber():
     try:
