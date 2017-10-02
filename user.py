@@ -1,13 +1,12 @@
-
-# MemriseAPI
+#MemriseAPI
 import urllib
-import sys
 import mem_exceptions
+from course import get_pagetext
 
 __all__ = ['courses_learning', 'courses_learning_number', 'courses_teaching', 'courses_teaching_number', 'dailygoal',  'mems', 'number_of_followers', 'number_of_following', 'points', 'promember', 'top50learncompetition',
            'words', 'usertest']
 
-actuality = coerce(1.1, 10.2017) #version: 1.1 last, last update: October 2017
+actuality = coerce(1.2, 10.2017) #version: 1.2 last, last update: October 2017
 
 
 
@@ -156,45 +155,58 @@ def number_of_following(user):
                 raise mem_exceptions.NoConnection()
 
 def courses_learning_number(user):
-    try:
-        url = "http://memrise.com/user/" + user + "/courses/teaching"
-        text = get_pagetext(url)
-        matched_lines = [line for line in text.split('\n') if "" in line]
-        return matched_lines[35]
-    except IOError:
-        raise mem_exceptions.NoConnection()
+    usertest(user)
+    if exist == False:
+        raise mem_exceptions.UserError()
+    if exist == True:
+           try:
+                      url = "http://memrise.com/user/" + user + "/courses/teaching"
+                      text = get_pagetext(url)
+                      matched_lines = [line for line in text.split('\n') if "" in line]
+                      return matched_lines[35]
+           except IOError:
+                      raise mem_exceptions.NoConnection()
        
 def courses_teaching_number(user):
-    try:
-        url = "http://memrise.com/user/" + user + "/courses/teaching"
-        text = get_pagetext(url)
-        matched_lines = [line for line in text.split('\n') if "" in line]
-        return matched_lines[36]
-    except IOError:
-        raise mem_exceptions.NoConnection()
+    usertest(user)
+    if exist == False:
+        raise mem_exceptions.UserError()
+    if exist == True:
+        try:
+            url = "http://memrise.com/user/" + user + "/courses/teaching"
+            text = get_pagetext(url)
+            matched_lines = [line for line in text.split('\n') if "" in line]
+            return matched_lines[36]
+        except IOError:
+            raise mem_exceptions.NoConnection()
         
-def learning_courses(user):
-    try:
-        url = "http://memrise.com/user/" + user + "/courses/learning"
-        text = pagetext(url)
-        matched_lines = [line for line in text.split('\n') if "" in line]
-        for el in range(39, len(matched_lines)-45, 6):
-            l=[]
-            for i in range(0,6):
-                if i != 4:
-                    l.append(matched_lines[el+i])
-            print l
+def courses_learning(user):
+    usertest(user)
+    if exist == False:
+        raise mem_exceptions.UserError()
+    if exist == True:
+        try:
+            url = "http://memrise.com/user/" + user + "/courses/learning"
+            text = get_pagetext(url)
+            matched_lines = [line for line in text.split('\n') if "" in line]
+            for el in range(39, len(matched_lines)-43):
+                    print matched_lines[el]
+        except IOError:
+            raise mem_exceptions.NoConnection()
                 
-def teaching_courses(user, generator=True):
-    url = "http://memrise.com/user/" + user + "/courses/teaching"
-    text = get_pagetext(url)
-    matched_lines = [line for line in text.split('\n') if "" in line]
-    for el in range(39, len(matched_lines)-45 ,6):
-        l=[]
-        for i in range(0,6):
-            if i != 4 and i != 5:
-                l.append(matched_lines[el+i])
-        print l    
+def courses_teaching(user):
+    usertest(user)
+    if exist == False:
+        raise mem_exceptions.UserError()
+    if exist == True:
+        try:
+            url = "http://memrise.com/user/" + user + "/courses/teaching"
+            text = get_pagetext(url)
+            matched_lines = [line for line in text.split('\n') if "" in line]
+            for el in range(39, len(matched_lines)-42):
+                    print matched_lines[el]
+        except IOError:
+            raise mem_exceptions.NoConnection()
     
          
    
