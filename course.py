@@ -1,13 +1,11 @@
 #MemriseAPI
 import urllib
-import sys
-from datetime import datetime as dt
-import requests
+from bs4 import BeautifulSoup
 import mem_exceptions
 
 __all__ = ['actuality', 'allcourses', 'courseinfo', 'coursenumber', 'coursetest']
 
-actuality = coerce(1.1, 9.2017) #version: 1.1 last, last update: October 2017
+actuality = coerce(1.2, 9.2017) #version: 1.2 last, last update: October 2017
 
 
 def linenumber(url, text): #gets the number of a line
@@ -46,7 +44,6 @@ def coursenumber():
 
 
 def get_pagetext(url):
-    from bs4 import BeautifulSoup
     html = urllib.urlopen(url).read()
     soup = BeautifulSoup(html)
         # kill all script and style elements
